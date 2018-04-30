@@ -1,15 +1,6 @@
-# Base58
+# base58
 
-[![Build Status](https://travis-ci.org/sammy00/base58.svg?branch=master)](https://travis-ci.org/sammy00/base58)
-[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/sammy00/base58)
-
-Package base58 provides an API for encoding and decoding to and from the
-modified base58 encoding.  It also provides an API to do Base58Check encoding,
-as described [here](https://en.bitcoin.it/wiki/Base58Check_encoding).
-
-
-## Base58 
+## base58 
 
 **Base58**是用于比特币中使用的一种独特的编码方式，主要用于产生比特币的钱包地址。相比Base64，Base58不使用数字"0"，字母大写"O"，字母大写"I"，和字母小写"l"，以及"+"和"/"符号。
 
@@ -44,26 +35,33 @@ base-58编码可看作将一个字符串从256进制转换成58进制的过程�
   52  |  'u'  |  53   |  'v'  |  54   |  'w'  |  55   |  'x'  |
   56  |  'y'  |  57   |  'z'  |
 
-A comprehensive suite of tests is provided to ensure proper functionality.
+## Base58Check  
+Base58Check是比特币中改进版的Base58算法，主要为了解决 Base58 导出的字符串没有校验机制
 
-## Installation and Updating
+### 特点  
++ 任意大小的输入（载荷）  
++ Base58编码得到的字符串  
++ 一个字节标明版本号。比特币使用0x00  
++ 4字节基于SHA256生成的校验码，用于自动检测手误写错的结果    
++ 额外一步用于保留数据首部的0  
 
-```bash
-$ go get -u github.com/sammy00/base58
-```
+### 编/解码过程  
+给定版本号`v`和载荷`data`的字节数组  
 
-## Examples
+1. 计算哈希值`SHA256(SHA256(v|data))`，以其前4字节作为校验码`ecc`  
+2. 利用Base58编码以字节数组`v|data|ecc`表示的大端格式的大整数得到一部分输出`out1`  
+3. 对于上一步没有处理到的前缀0组成的字节子数组，将其映射为等长的'1'字符串`out2`  
+4. 拼接`out1`和`out2`得到最后的输出`out=out1|out2`  
 
-* [Decode Example](http://godoc.org/github.com/sammy00/base58#example-Decode)  
-  Demonstrates how to decode modified base58 encoded data.
-* [Encode Example](http://godoc.org/github.com/sammy00/base58#example-Encode)  
-  Demonstrates how to encode data using the modified base58 encoding scheme.
-* [CheckDecode Example](http://godoc.org/github.com/sammy00/base58#example-CheckDecode)  
-  Demonstrates how to decode Base58Check encoded data.
-* [CheckEncode Example](http://godoc.org/github.com/sammy00/base58#example-CheckEncode)  
-  Demonstrates how to encode data using the Base58Check encoding scheme.
+### 关于版本号对应的字节  
+比特币中的版本号及其用途如下表  
 
-## License
-
-Package base58 is licensed under the [copyfree](http://copyfree.org) ISC
-License.
+10进制的版本号 | 首字符  | 用途
+:-------------:|:-------:|:-------------------:
+0              | 1       | 公钥哈希
+5              | 3       | 脚本哈希 
+21             | 4       | 压缩版公钥
+52             | M or N  | Namecoin公钥哈希 
+128            | 5       | 私钥 
+111            | m or n  | 测试网络的公钥哈希 
+196            | 2       | 测试网络脚本哈希 
