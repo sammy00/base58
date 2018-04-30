@@ -1,6 +1,6 @@
 # base58
 
-[![Build Status](http://img.shields.io/travis/sammy00.svg)](https://travis-ci.org/sammy00)
+[![Build Status](https://travis-ci.org/sammy00/base58.svg?branch=master)](https://travis-ci.org/sammy00/base58)
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/sammy00/base58)
 
