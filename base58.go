@@ -24,6 +24,7 @@ func Decode(b string) []byte {
 		if tmp == 255 {
 			return []byte("")
 		}
+		// update `answer` as `answer+bigRadix^[len(b)-i]*b_i`
 		scratch.SetInt64(int64(tmp))
 		scratch.Mul(j, scratch)
 		answer.Add(answer, scratch)
@@ -66,9 +67,8 @@ func Encode(b []byte) string {
 	}
 
 	// reverse
-	alen := len(answer)
-	for i := 0; i < alen/2; i++ {
-		answer[i], answer[alen-1-i] = answer[alen-1-i], answer[i]
+	for i, j := 0, len(answer)-1; i < j; i, j = i+1, j-1 {
+		answer[i], answer[j] = answer[j], answer[i]
 	}
 
 	return string(answer)
