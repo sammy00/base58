@@ -1,5 +1,4 @@
-base58
-==========
+# base58
 
 [![Build Status](http://img.shields.io/travis/sammy00.svg)](https://travis-ci.org/sammy00)
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
