@@ -39,8 +39,8 @@ func TestCheckEncodeX(t *testing.T) {
 
 func TestCheckDecodeX(t *testing.T) {
 	type expect struct {
-		version []byte
 		decoded string
+		version []byte
 		err     error
 	}
 
@@ -53,8 +53,8 @@ func TestCheckDecodeX(t *testing.T) {
 			"5KN7MzqK5wt2TP1fQCYyHBtDrXdJuXbUzm4A9rKAteGu3Qi5CVR",
 			1,
 			expect{
-				[]byte{0x80},
 				"CBF4B9F70470856BB4F40F80B87EDB90865997FFEE6DF315AB166D713AF433A5",
+				[]byte{0x80},
 				nil,
 			},
 		},
@@ -62,8 +62,8 @@ func TestCheckDecodeX(t *testing.T) {
 			"5HtasZ6ofTHP6HCwTqTkLDuLQisYPah7aUnSKfC7h4hMUVw2gi5",
 			1,
 			expect{
-				[]byte{0x80},
 				"09C2686880095B1A4C249EE3AC4EEA8A014F11E6F986D0B5025AC1F39AFBD9AE",
+				[]byte{0x80},
 				nil,
 			},
 		},
@@ -71,8 +71,8 @@ func TestCheckDecodeX(t *testing.T) {
 			"cfrm38V8aXBn7JWA1ESmFMUn6erxeBGZGAxJPY4e36S9QWkzZKtaVqLNMgnifETYw7BPwWC9aPD",
 			5,
 			expect{
-				[]byte{0x64, 0x3B, 0xF6, 0xA8, 0x9A},
 				"04bb458cef4fca5a974040f00103e572ae02b57cc3a84e78caac6ccf16867fa93e9d1e4a636766eef5dd0375d87a",
+				[]byte{0x64, 0x3B, 0xF6, 0xA8, 0x9A},
 				nil,
 			},
 		},
@@ -80,21 +80,21 @@ func TestCheckDecodeX(t *testing.T) {
 			"cfrm38V8G4qq2ywYEFfWLD5Cc6msj9UwsG2Mj4Z6QdGJAFQpdatZLavkgRd1i4iBMdRngDqDs51",
 			5,
 			expect{
-				[]byte{0x64, 0x3B, 0xF6, 0xA8, 0x9A},
 				"04494af136c40ea76fc501a00103fcbcd88fdce971a492ad3beeb99d0f3181470d48819039b7cee569e76acc4aa3",
+				[]byte{0x64, 0x3B, 0xF6, 0xA8, 0x9A},
 				nil,
 			},
 		},
-		{"cfrm38", 5, expect{nil, "", base58.ErrInvalidFormat}},
+		{"cfrm38", 5, expect{"", nil, base58.ErrInvalidFormat}},
 		{
 			"cfrm38V8G4qq2ywYEFfWLD5Cc6msj9UwsG2Mj4Z6QdGJAFQpdatZLavkgRd1i4iBMdRngDqDs52",
 			5,
-			expect{nil, "", base58.ErrChecksum},
+			expect{"", nil, base58.ErrChecksum},
 		},
 	}
 
 	for i, c := range testCases {
-		version, decoded, err := base58.CheckDecodeX(c.input, c.versionLen)
+		decoded, version, err := base58.CheckDecodeX(c.input, c.versionLen)
 
 		if err != c.expect.err {
 			t.Fatalf("#%d unexpected error: got %v, expect %v", i, err, c.expect.err)

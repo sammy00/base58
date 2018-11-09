@@ -20,7 +20,7 @@ func CheckDecodeX(input string, versionLen int) ([]byte, []byte, error) {
 	version := decoded[:versionLen]
 	payload := decoded[versionLen : len(decoded)-4]
 
-	return version, payload, nil
+	return payload, version, nil
 }
 
 // CheckEncodeX extends CheckEncode by allowing more version bytes
