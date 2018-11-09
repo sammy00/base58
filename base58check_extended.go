@@ -24,9 +24,9 @@ func CheckDecodeX(input string, versionLen int) ([]byte, []byte, error) {
 }
 
 // CheckEncodeX extends CheckEncode by allowing more version bytes
-func CheckEncodeX(version, input []byte) string {
-	b := make([]byte, 0, len(version)+len(input)+4)
-	b = append(b, version...)
+func CheckEncodeX(input []byte, versions ...byte) string {
+	b := make([]byte, 0, len(versions)+len(input)+4)
+	b = append(b, versions...)
 	b = append(b, input...)
 
 	cksum := Checksum(b)

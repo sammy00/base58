@@ -11,18 +11,18 @@ import (
 
 func TestCheckEncodeX(t *testing.T) {
 	testCases := []struct {
-		version []byte
-		input   string
-		expect  string
+		input    string
+		versions []byte
+		expect   string
 	}{
 		{
-			[]byte{0x80},
 			"A43A940577F4E97F5C4D39EB14FF083A98187C64EA7C99EF7CE460833959A519",
+			[]byte{0x80},
 			"5K4caxezwjGCGfnoPTZ8tMcJBLB7Jvyjv4xxeacadhq8nLisLR2",
 		},
 		{
-			[]byte{0x80},
 			"C2C8036DF268F498099350718C4A3EF3984D2BE84618C2650F5171DCC5EB660A",
+			[]byte{0x80},
 			"5KJ51SgxWaAYR13zd9ReMhJpwrcX47xTJh2D3fGPG9CM8vkv5sH",
 		},
 	}
@@ -30,7 +30,7 @@ func TestCheckEncodeX(t *testing.T) {
 	for i, c := range testCases {
 		payload, _ := hex.DecodeString(c.input)
 
-		if got := base58.CheckEncodeX(c.version, payload); got != c.expect {
+		if got := base58.CheckEncodeX(payload, c.versions...); got != c.expect {
 			t.Fatalf("#%d invalid encoded string: got %s, expect %s", i, got,
 				c.expect)
 		}
