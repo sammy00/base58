@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sammy00/base58"
+	"github.com/sammyne/base58"
 )
 
 func TestCheckEncodeX(t *testing.T) {
