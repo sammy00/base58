@@ -1,6 +1,7 @@
 # Base58
 
-[![Build Status](https://travis-ci.org/sammyne/base58.svg?branch=master)](https://travis-ci.org/sammyne/base58)
+[![CircleCI](https://circleci.com/gh/sammyne/base58.svg?style=svg)](https://circleci.com/gh/sammyne/base58)
+[![codecov](https://codecov.io/gh/sammyne/base58/branch/master/graph/badge.svg)](https://codecov.io/gh/sammyne/base58)
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/sammyne/base58)
 
